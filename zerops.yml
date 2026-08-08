@@ -3,7 +3,7 @@ zerops:
     build:
       base: nodejs@22
       buildCommands:
-        - npm ci
+        - npm install
         - npm run build
       deployFiles:
         - .output
@@ -27,20 +27,17 @@ zerops:
     build:
       base: nodejs@22
       buildCommands:
-        - npm ci --omit=dev
+        - npm --prefix ./api install --omit=dev
       deployFiles:
         - api
-        - package.json
-        - package-lock.json
-        - node_modules
       cache:
-        - node_modules
+        - api/node_modules
     run:
       base: nodejs@22
       ports:
         - port: 3000
           httpSupport: true
-      start: npm run start:api
+      start: node api/server.mjs
       envVariables:
         PORT: "3000"
         DATABASE_URL: ${db_connectionString}
