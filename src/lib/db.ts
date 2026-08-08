@@ -46,7 +46,7 @@ export async function ensureSchema() {
     schemaReady = (async () => {
       const client = await getPool().connect();
       try {
-        await client.query(`CREATE EXTENSION IF NOT EXISTS pgcrypto`);
+        // PG 13+ ships gen_random_uuid() in core; skip CREATE EXTENSION (needs superuser).
         await client.query(SCHEMA_SQL);
       } finally {
         client.release();

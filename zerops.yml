@@ -2,7 +2,9 @@ zerops:
   - setup: web
     build:
       base: nodejs@22
+      os: ubuntu
       buildCommands:
+        - rm -rf node_modules
         - npm install
         - npm run build
       deployFiles:
@@ -15,13 +17,14 @@ zerops:
         - node_modules
     run:
       base: nodejs@22
+      os: ubuntu
       ports:
         - port: 3000
           httpSupport: true
       start: npm run start
       envVariables:
         PORT: "3000"
-        DATABASE_URL: ${db_connectionString}
+        DATABASE_URL: ${db_connectionString}/db
 
   - setup: api
     build:
@@ -40,4 +43,4 @@ zerops:
       start: node api/server.mjs
       envVariables:
         PORT: "3000"
-        DATABASE_URL: ${db_connectionString}
+        DATABASE_URL: ${db_connectionString}/db

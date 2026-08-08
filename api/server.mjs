@@ -16,7 +16,7 @@ if (!databaseUrl) {
 const pool = new Pool({ connectionString: databaseUrl, max: 10 });
 
 async function ensureSchema() {
-  await pool.query(`CREATE EXTENSION IF NOT EXISTS pgcrypto`);
+  // PG 13+ ships gen_random_uuid() in core; skip CREATE EXTENSION (needs superuser on Zerops).
   await pool.query(`
     CREATE TABLE IF NOT EXISTS waitlist_signups (
       id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
