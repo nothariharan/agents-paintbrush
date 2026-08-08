@@ -14,17 +14,25 @@ zerops:
         - node_modules
       cache:
         - node_modules
+    deploy:
+      readinessCheck:
+        httpGet:
+          port: 3000
+          path: /api/public/health
     run:
       base: nodejs@22
       os: ubuntu
       ports:
         - port: 3000
+          protocol: TCP
           httpSupport: true
       start: node .output/server/index.mjs
       envVariables:
         PORT: "3000"
         HOST: "0.0.0.0"
-        DATABASE_URL: ${db_connectionString}/db
+        NITRO_HOST: "0.0.0.0"
+        NITRO_PORT: "3000"
+        DATABASE_URL: postgresql://${db_user}:${db_password}@${db_hostname}:${db_port}/${db_dbName}
       healthCheck:
         httpGet:
           port: 3000
@@ -39,14 +47,21 @@ zerops:
         - api
       cache:
         - api/node_modules
+    deploy:
+      readinessCheck:
+        httpGet:
+          port: 3000
+          path: /health
     run:
       base: nodejs@22
       ports:
         - port: 3000
+          protocol: TCP
           httpSupport: true
       start: node ./api/server.mjs
       envVariables:
         PORT: "3000"
+        HOST: "0.0.0.0"
         DATABASE_URL: postgresql://${db_user}:${db_password}@${db_hostname}:${db_port}/${db_dbName}
       healthCheck:
         httpGet:

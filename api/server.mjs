@@ -189,8 +189,10 @@ process.on("unhandledRejection", (error) => {
   console.error("unhandledRejection", error);
 });
 
+// Must bind 0.0.0.0 — Zerops L7 hits the container VXLAN IP, not loopback.
 server.listen(port, "0.0.0.0", () => {
-  console.log(`image-gen api listening on ${port}`);
+  const addr = server.address();
+  console.log(`image-gen api listening on`, addr);
 });
 
 // Warm schema in background; don't block listen / exit on failure.
