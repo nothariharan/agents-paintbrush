@@ -4,15 +4,14 @@ zerops:
       base: nodejs@22
       os: ubuntu
       buildCommands:
-        - rm -rf node_modules
+        - rm -rf node_modules package-lock.json
         - npm install
         - npm run build
+        - npm prune --omit=dev
       deployFiles:
         - .output
         - package.json
-        - package-lock.json
         - node_modules
-        - public
       cache:
         - node_modules
     run:
@@ -21,10 +20,15 @@ zerops:
       ports:
         - port: 3000
           httpSupport: true
-      start: npm run start
+      start: node .output/server/index.mjs
       envVariables:
         PORT: "3000"
+        HOST: "0.0.0.0"
         DATABASE_URL: ${db_connectionString}/db
+      healthCheck:
+        httpGet:
+          port: 3000
+          path: /api/public/health
 
   - setup: api
     build:
@@ -40,7 +44,11 @@ zerops:
       ports:
         - port: 3000
           httpSupport: true
-      start: node api/server.mjs
+      start: node ./api/server.mjs
       envVariables:
         PORT: "3000"
-        DATABASE_URL: ${db_connectionString}/db
+        DATABASE_URL: postgresql://${db_user}:${db_password}@${db_hostname}:${db_port}/${db_dbName}
+      healthCheck:
+        httpGet:
+          port: 3000
+          path: /health

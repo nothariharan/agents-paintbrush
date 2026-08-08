@@ -13,7 +13,13 @@ if (!databaseUrl) {
   process.exit(1);
 }
 
+console.log("boot", { port, databaseUrl: databaseUrl.replace(/:[^:@/]+@/, ":***@") });
+
 const pool = new Pool({ connectionString: databaseUrl, max: 10 });
+
+pool.on("error", (error) => {
+  console.error("idle pool error", error);
+});
 
 async function ensureSchema() {
   // PG 13+ ships gen_random_uuid() in core; skip CREATE EXTENSION (needs superuser on Zerops).
@@ -68,6 +74,18 @@ const emailOk = (email) =>
   email.length <= 255 &&
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
+let schemaPromise;
+
+function readySchema() {
+  if (!schemaPromise) {
+    schemaPromise = ensureSchema().catch((error) => {
+      schemaPromise = undefined;
+      throw error;
+    });
+  }
+  return schemaPromise;
+}
+
 const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url || "/", `http://${req.headers.host || "localhost"}`);
@@ -78,17 +96,27 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (req.method === "GET" && (path === "/health" || path === "/api/public/health")) {
-      await ensureSchema();
-      return send(res, 200, {
-        ok: true,
-        service: "image-gen-api",
-        db: true,
-        time: new Date().toISOString(),
-      });
+      try {
+        await readySchema();
+        return send(res, 200, {
+          ok: true,
+          service: "image-gen-api",
+          db: true,
+          time: new Date().toISOString(),
+        });
+      } catch (error) {
+        console.error("health db check failed", error);
+        return send(res, 503, {
+          ok: false,
+          service: "image-gen-api",
+          db: false,
+          time: new Date().toISOString(),
+        });
+      }
     }
 
     if (req.method === "GET" && (path === "/stats" || path === "/api/public/stats")) {
-      await ensureSchema();
+      await readySchema();
       const result = await pool.query(`
         SELECT
           (SELECT count(*)::int FROM waitlist_signups) AS waitlist_count,
@@ -98,7 +126,7 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (req.method === "POST" && (path === "/click" || path === "/api/public/click")) {
-      await ensureSchema();
+      await readySchema();
       await pool.query(`
         INSERT INTO site_counters (name, value, updated_at)
         VALUES ('github_clicks', 1, now())
@@ -122,7 +150,7 @@ const server = http.createServer(async (req, res) => {
         return send(res, 400, { ok: false, error: "that email doesn't look right" });
       }
 
-      await ensureSchema();
+      await readySchema();
       try {
         await pool.query(`INSERT INTO waitlist_signups (email, note) VALUES ($1, $2)`, [
           email,
@@ -154,13 +182,18 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-ensureSchema()
-  .then(() => {
-    server.listen(port, "0.0.0.0", () => {
-      console.log(`image-gen api listening on ${port}`);
-    });
-  })
-  .catch((error) => {
-    console.error("failed to init schema", error);
-    process.exit(1);
-  });
+process.on("uncaughtException", (error) => {
+  console.error("uncaughtException", error);
+});
+process.on("unhandledRejection", (error) => {
+  console.error("unhandledRejection", error);
+});
+
+server.listen(port, "0.0.0.0", () => {
+  console.log(`image-gen api listening on ${port}`);
+});
+
+// Warm schema in background; don't block listen / exit on failure.
+readySchema()
+  .then(() => console.log("schema ready"))
+  .catch((error) => console.error("schema init failed (will retry on request)", error));
