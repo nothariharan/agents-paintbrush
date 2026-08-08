@@ -1,0 +1,46 @@
+zerops:
+  - setup: web
+    build:
+      base: nodejs@22
+      buildCommands:
+        - npm ci
+        - npm run build
+      deployFiles:
+        - .output
+        - package.json
+        - package-lock.json
+        - node_modules
+        - public
+      cache:
+        - node_modules
+    run:
+      base: nodejs@22
+      ports:
+        - port: 3000
+          httpSupport: true
+      start: npm run start
+      envVariables:
+        PORT: "3000"
+        DATABASE_URL: ${db_connectionString}
+
+  - setup: api
+    build:
+      base: nodejs@22
+      buildCommands:
+        - npm ci --omit=dev
+      deployFiles:
+        - api
+        - package.json
+        - package-lock.json
+        - node_modules
+      cache:
+        - node_modules
+    run:
+      base: nodejs@22
+      ports:
+        - port: 3000
+          httpSupport: true
+      start: npm run start:api
+      envVariables:
+        PORT: "3000"
+        DATABASE_URL: ${db_connectionString}

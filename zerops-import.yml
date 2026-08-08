@@ -1,0 +1,23 @@
+project:
+  name: agents-paintbrush
+  tags:
+    - zerops-challenge
+    - image-gen
+
+services:
+  - hostname: db
+    type: postgresql@16
+    mode: NON_HA
+    priority: 1
+
+  - hostname: api
+    type: nodejs@22
+    enableSubdomainAccess: true
+    minContainers: 1
+    maxContainers: 2
+
+  - hostname: web
+    type: nodejs@22
+    enableSubdomainAccess: true
+    minContainers: 1
+    maxContainers: 3
