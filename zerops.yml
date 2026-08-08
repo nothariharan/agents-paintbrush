@@ -24,7 +24,6 @@ zerops:
       os: ubuntu
       ports:
         - port: 3000
-          protocol: TCP
           httpSupport: true
       start: node .output/server/index.mjs
       envVariables:
@@ -56,7 +55,6 @@ zerops:
       base: nodejs@22
       ports:
         - port: 3000
-          protocol: TCP
           httpSupport: true
       start: node ./api/server.mjs
       envVariables:
