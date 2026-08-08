@@ -35,8 +35,7 @@ function CopyButton({ value }: { value: string }) {
         });
       }}
       aria-label={`copy: ${value}`}
-      className="hand shrink-0 border-[3px] border-ink bg-doodle-yellow px-3 py-1 text-xl leading-none shadow-[3px_4px_0_0_var(--ink)] transition-transform hover:-translate-y-0.5"
-      style={{ borderRadius: "12px 7px 14px 8px" }}
+      className="hand shrink-0 rounded-md border border-ink/50 bg-doodle-yellow px-3 py-1 text-xl leading-none shadow-sm transition-transform hover:-translate-y-0.5"
     >
       {copied ? "copied!" : "copy"}
     </button>
@@ -47,11 +46,11 @@ export function Install() {
   return (
     <>
       <PaintDrip from="paper" to="yellow" />
-      <section id="install" className="bg-doodle-yellow">
+      <section id="install" className="bg-doodle-yellow/80">
         <div className="mx-auto max-w-6xl px-5 py-16 md:py-24">
           <Reveal>
-            <p className="hand text-3xl text-ink">install</p>
-            <h2 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">
+            <p className="hand text-3xl text-ink/80">install</p>
+            <h2 className="mt-2 font-display text-4xl leading-[1.1] tracking-tight sm:text-5xl">
               four steps and your agent has a brush.
             </h2>
           </Reveal>
@@ -63,14 +62,14 @@ export function Install() {
               height={768}
               loading="lazy"
               decoding="async"
-              className="mx-auto mt-8 w-full max-w-3xl"
+              className="mx-auto mt-8 w-full max-w-3xl rounded-2xl border border-ink/10 shadow-[0_14px_36px_oklch(0.35_0.02_260/0.1)]"
             />
           </Reveal>
 
           <ol className="mt-10 space-y-7">
             {steps.map((s, i) => (
               <li key={s.cmd} className="flex flex-col gap-2">
-                <span className="text-sm font-bold text-ink/80">
+                <span className="font-mono text-sm text-ink/80">
                   <span className="hand mr-2 text-2xl text-ink">{i + 1}.</span>
                   {s.label}
                 </span>
@@ -80,10 +79,10 @@ export function Install() {
               </li>
             ))}
             <li className="flex flex-col gap-2">
-              <span className="text-sm font-bold text-ink/80">
+              <span className="font-mono text-sm text-ink/80">
                 <span className="hand mr-2 text-2xl text-ink">4.</span>
                 register the MCP server in cursor or claude code, pointing at{" "}
-                <span className="font-mono">mcp-server.mjs</span>
+                <span className="rounded bg-paper/70 px-1">mcp-server.mjs</span>
               </span>
               <CodeCard label="mcp.json" multiline action={<CopyButton value={mcpConfig} />}>
                 <JsonBlock value={mcpConfig} />
@@ -92,13 +91,13 @@ export function Install() {
           </ol>
 
 
-          <p className="mt-8 max-w-2xl text-sm leading-relaxed font-semibold text-ink/80">
+          <p className="mt-8 max-w-2xl font-mono text-sm leading-relaxed text-ink/75">
             then ask your agent for a hero image. it calls{" "}
-            <span className="font-mono">generate_image</span>, ChatGPT paints, and the PNG shows up
-            in your project. deploying this marketing site yourself? there's a{" "}
-            <span className="font-extrabold text-ink">Deploy on Zerops</span> guide in{" "}
-            <span className="font-mono">DEPLOY_ZEROPS.md</span> covering the web, api and postgres
-            services.
+            <span className="rounded bg-paper/70 px-1">generate_image</span>, ChatGPT paints, and
+            the PNG shows up in your project. deploying this marketing site yourself? there&apos;s a{" "}
+            <span className="text-ink">Deploy on Zerops</span> guide in{" "}
+            <span className="rounded bg-paper/70 px-1">DEPLOY_ZEROPS.md</span> covering the web, api
+            and postgres services.
           </p>
         </div>
       </section>
@@ -134,22 +133,22 @@ const faqs = [
 ];
 
 const faqTones = [
-  "bg-doodle-mint",
-  "bg-doodle-pink",
-  "bg-doodle-blue",
-  "bg-doodle-purple",
-  "bg-doodle-coral",
-  "bg-doodle-yellow",
+  "bg-doodle-mint/80",
+  "bg-doodle-pink/80",
+  "bg-doodle-blue/80",
+  "bg-doodle-purple/80",
+  "bg-doodle-coral/80",
+  "bg-doodle-yellow/90",
 ];
 
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="bg-paper">
+    <section id="faq" className="bg-paper/50">
       <div className="mx-auto max-w-3xl px-5 py-16 md:py-24">
         <Reveal>
-          <p className="hand text-3xl text-ink">questions</p>
-          <h2 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">
+          <p className="hand text-3xl text-ink/80">questions</p>
+          <h2 className="mt-2 font-display text-4xl leading-[1.1] tracking-tight sm:text-5xl">
             the honest answers.
           </h2>
         </Reveal>
@@ -167,7 +166,7 @@ export function Faq() {
                   <span className="hand ml-auto text-3xl">{open === i ? "–" : "+"}</span>
                 </button>
                 {open === i && (
-                  <p className="border-t-[3px] border-dashed border-ink/40 bg-paper p-4 text-sm leading-relaxed font-semibold text-ink/80">
+                  <p className="border-t border-dashed border-ink/25 bg-paper/90 p-4 font-mono text-sm leading-relaxed text-ink/75">
                     {f.a}
                   </p>
                 )}

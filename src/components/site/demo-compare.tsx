@@ -50,18 +50,15 @@ function PlaceholderSvg() {
 
 function BeforeGrid() {
   return (
-    <div className="border-[3px] border-ink bg-[#f7f6f3] p-3 sm:p-4">
+    <div className="rounded-xl border border-ink/25 bg-[#f7f6f3] p-3 shadow-[0_12px_28px_oklch(0.35_0.02_260/0.08)] sm:p-4">
       <div className="mb-3 flex items-end justify-between gap-2">
         <div>
-          <p className="text-[10px] font-extrabold tracking-[0.18em] text-ink/50 uppercase">
+          <p className="font-mono text-[10px] tracking-[0.18em] text-ink/50 uppercase">
             Terra Ceramics
           </p>
           <p className="font-display text-xl leading-none text-ink sm:text-2xl">New Arrivals</p>
         </div>
-        <span
-          className="hand border-[2.5px] border-ink bg-doodle-coral px-2 py-0.5 text-lg leading-none shadow-[2px_3px_0_0_var(--ink)]"
-          style={{ borderRadius: "10px 6px 12px 7px" }}
-        >
+        <span className="hand rounded-md border border-ink/20 bg-doodle-coral px-2 py-0.5 text-lg leading-none shadow-sm">
           no image-gen
         </span>
       </div>
@@ -69,7 +66,7 @@ function BeforeGrid() {
         {PRODUCTS.map((p) => (
           <div
             key={p.name}
-            className="flex overflow-hidden border-[2.5px] border-ink/20 bg-white"
+            className="flex overflow-hidden rounded-lg border border-ink/15 bg-white"
           >
             <div className="aspect-[4/3] w-[46%] shrink-0 bg-[#f0f0f0]">
               <PlaceholderSvg />
@@ -89,15 +86,12 @@ function BeforeGrid() {
 
 function AfterPage() {
   return (
-    <div className="overflow-hidden border-[3px] border-ink bg-paper shadow-[5px_6px_0_0_var(--ink)]">
-      <div className="flex items-center justify-between border-b-[3px] border-ink bg-doodle-mint px-3 py-2">
-        <span
-          className="hand border-[2.5px] border-ink bg-paper px-2 py-0.5 text-lg leading-none shadow-[2px_3px_0_0_var(--ink)]"
-          style={{ borderRadius: "10px 6px 12px 7px" }}
-        >
+    <div className="overflow-hidden rounded-xl border border-ink/25 bg-paper shadow-[0_14px_32px_oklch(0.35_0.02_260/0.1)]">
+      <div className="flex items-center justify-between border-b border-ink/15 bg-doodle-mint px-3 py-2">
+        <span className="hand rounded-md border border-ink/15 bg-paper px-2 py-0.5 text-lg leading-none shadow-sm">
           image-gen on
         </span>
-        <span className="font-mono text-[10px] font-bold text-ink/70">public/*.png</span>
+        <span className="font-mono text-[10px] text-ink/70">public/*.png</span>
       </div>
       <img
         src={demoAfter}
@@ -108,11 +102,11 @@ function AfterPage() {
         loading="lazy"
         decoding="async"
       />
-      <div className="grid grid-cols-2 gap-2 border-t-[3px] border-ink bg-paper-deep p-3 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-2 border-t border-ink/10 bg-paper-deep p-3 sm:grid-cols-4">
         {PRODUCTS.map((p) => (
           <p
             key={p.file}
-            className="truncate border-[2px] border-ink/30 bg-paper px-2 py-1 font-mono text-[9px] font-bold text-ink/70"
+            className="truncate rounded-md border border-ink/15 bg-paper px-2 py-1 font-mono text-[9px] text-ink/70"
           >
             {p.file}
           </p>
@@ -159,8 +153,7 @@ function CompareSlider() {
   return (
     <div
       ref={frameRef}
-      className="relative select-none overflow-hidden border-[3px] border-ink bg-paper shadow-[6px_7px_0_0_var(--ink)]"
-      style={{ borderRadius: "14px 10px 16px 12px" }}
+      className="relative select-none overflow-hidden rounded-xl border border-ink/25 bg-paper shadow-[0_16px_36px_oklch(0.35_0.02_260/0.12)]"
     >
       <img
         src={demoAfter}
@@ -200,24 +193,15 @@ function CompareSlider() {
           if (e.key === "ArrowRight") setPct((p) => Math.min(92, p + 4));
         }}
       >
-        <span
-          className="absolute top-1/2 left-1/2 grid h-10 w-10 -translate-x-1/2 -translate-y-1/2 place-items-center border-[3px] border-ink bg-doodle-yellow font-display text-lg shadow-[3px_4px_0_0_var(--ink)]"
-          style={{ borderRadius: "12px 8px 14px 9px" }}
-        >
+        <span className="absolute top-1/2 left-1/2 grid h-10 w-10 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-ink/40 bg-doodle-yellow font-display text-lg shadow-md">
           ↔
         </span>
       </div>
 
-      <span
-        className="hand absolute top-3 left-3 z-20 border-[2.5px] border-ink bg-doodle-coral px-2 py-0.5 text-xl leading-none shadow-[2px_3px_0_0_var(--ink)]"
-        style={{ borderRadius: "10px 6px 12px 7px" }}
-      >
+      <span className="hand absolute top-3 left-3 z-20 rounded-md border border-ink/15 bg-doodle-coral px-2 py-0.5 text-xl leading-none shadow-sm">
         before · svgs
       </span>
-      <span
-        className="hand absolute top-3 right-3 z-20 border-[2.5px] border-ink bg-doodle-mint px-2 py-0.5 text-xl leading-none shadow-[2px_3px_0_0_var(--ink)]"
-        style={{ borderRadius: "10px 6px 12px 7px" }}
-      >
+      <span className="hand absolute top-3 right-3 z-20 rounded-md border border-ink/15 bg-doodle-mint px-2 py-0.5 text-xl leading-none shadow-sm">
         after · pngs
       </span>
     </div>
@@ -241,10 +225,9 @@ export function DemoCompare() {
             key={id}
             type="button"
             onClick={() => setMode(id)}
-            className={`border-[3px] border-ink px-3 py-1.5 text-sm font-extrabold shadow-[3px_4px_0_0_var(--ink)] transition-transform hover:-translate-y-0.5 ${
-              mode === id ? "bg-doodle-yellow" : "bg-paper"
+            className={`rounded-md border border-ink/40 px-3 py-1.5 font-mono text-xs transition-transform hover:-translate-y-0.5 ${
+              mode === id ? "bg-doodle-yellow shadow-sm" : "bg-paper"
             }`}
-            style={{ borderRadius: "12px 8px 14px 9px" }}
             aria-pressed={mode === id}
           >
             {label}
@@ -317,7 +300,7 @@ function MechanismCard({ mode }: { mode: "before" | "after" }) {
   if (mode === "before") {
     return (
       <div className="code-card">
-        <div className="flex items-center gap-2 border-b-[3px] border-ink bg-code-bar px-3 py-1.5">
+        <div className="flex items-center gap-2 border-b border-ink/30 bg-code-bar px-3 py-1.5">
           <span className="hand text-lg text-code-plain/70">product-card.tsx</span>
         </div>
         <pre className="overflow-x-auto bg-code-bg px-4 py-3 font-mono text-xs leading-relaxed">
@@ -342,7 +325,7 @@ function MechanismCard({ mode }: { mode: "before" | "after" }) {
 
   return (
     <div className="code-card">
-      <div className="flex items-center gap-2 border-b-[3px] border-ink bg-code-bar px-3 py-1.5">
+      <div className="flex items-center gap-2 border-b border-ink/30 bg-code-bar px-3 py-1.5">
         <span className="hand text-lg text-code-plain/70">agent → mcp</span>
       </div>
       <pre className="overflow-x-auto bg-code-bg px-4 py-3 font-mono text-xs leading-relaxed">
@@ -381,7 +364,7 @@ function MechanismStep({
     <div className={`ink-box p-4 ${color}`}>
       <p className="hand text-2xl leading-none text-ink/70">step {n}</p>
       <h3 className="mt-1 font-display text-2xl leading-snug">{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed font-semibold text-ink/80">{body}</p>
+      <p className="mt-2 font-mono text-xs leading-relaxed text-ink/75 sm:text-sm">{body}</p>
     </div>
   );
 }

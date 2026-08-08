@@ -95,7 +95,7 @@ export function ScrollProgress() {
   return (
     <div className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-1">
       <div
-        className="h-full bg-accent transition-[width] duration-150 ease-out"
+        className="h-full bg-[oklch(0.72_0.14_350)] transition-[width] duration-150 ease-out"
         style={{ width: `${pct}%` }}
       />
     </div>

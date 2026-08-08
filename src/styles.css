@@ -20,10 +20,9 @@
 
 @theme inline {
   --font-sans:
-    -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue",
-    "Inter", ui-sans-serif, sans-serif;
-  --font-display: "Gochi Hand", "Comic Sans MS", cursive;
-  --font-hand: "Caveat Brush", "Comic Sans MS", cursive;
+    "DM Sans", "Helvetica Neue", ui-sans-serif, sans-serif;
+  --font-display: "Instrument Serif", "Times New Roman", ui-serif, serif;
+  --font-hand: "Caveat", "Comic Sans MS", cursive;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
   --color-paper: var(--paper);
@@ -179,45 +178,48 @@
   }
 }
 
-/* ---- image-gen colourful doodle design system ---- */
+/* ---- scrapbook / moodboard doodle system (daisy-inspired) ---- */
 :root {
-  --radius: 0.6rem;
-  --paper: oklch(0.985 0.003 100);
-  --paper-deep: oklch(0.962 0.008 100);
-  --ink: oklch(0.19 0.012 260);
-  --ink-soft: oklch(0.44 0.014 260);
+  --radius: 0.75rem;
+  --paper: oklch(0.975 0.012 110);
+  --paper-deep: oklch(0.955 0.016 110);
+  --ink: oklch(0.22 0.02 260);
+  --ink-soft: oklch(0.48 0.02 260);
+  --grid-line: oklch(0.86 0.04 145);
 
-  --doodle-mint: oklch(0.79 0.13 160);
-  --doodle-yellow: oklch(0.89 0.16 92);
-  --doodle-pink: oklch(0.74 0.19 350);
-  --doodle-blue: oklch(0.73 0.15 245);
-  --doodle-coral: oklch(0.73 0.16 30);
-  --doodle-purple: oklch(0.74 0.13 300);
+  --doodle-mint: oklch(0.9 0.07 160);
+  --doodle-yellow: oklch(0.94 0.09 95);
+  --doodle-pink: oklch(0.9 0.08 350);
+  --doodle-blue: oklch(0.9 0.05 240);
+  --doodle-coral: oklch(0.9 0.08 35);
+  --doodle-purple: oklch(0.9 0.06 300);
+  --marker-mint: oklch(0.86 0.1 160 / 0.55);
+  --marker-pink: oklch(0.84 0.12 350 / 0.55);
+  --marker-yellow: oklch(0.9 0.14 95 / 0.55);
 
   --accent: var(--doodle-mint);
-  --accent-soft: oklch(0.93 0.06 160);
+  --accent-soft: oklch(0.94 0.04 160);
   --accent-foreground: var(--ink);
   --tape: var(--doodle-yellow);
+  --soft-shadow: 0 10px 28px oklch(0.35 0.02 260 / 0.1), 0 2px 6px oklch(0.35 0.02 260 / 0.06);
 
-  /* code window palette (dark ink terminal, doodle-bright tokens) */
-  --code-bg: oklch(0.24 0.02 260);
-  --code-bar: oklch(0.32 0.025 260);
+  --code-bg: oklch(0.28 0.02 260);
+  --code-bar: oklch(0.34 0.02 260);
   --code-plain: oklch(0.94 0.01 100);
-  --code-cmd: oklch(0.85 0.18 145);
-  --code-flag: oklch(0.86 0.16 92);
-  --code-url: oklch(0.8 0.14 245);
-  --code-str: oklch(0.84 0.15 30);
-  --code-key: oklch(0.82 0.16 320);
-  --code-num: oklch(0.86 0.14 200);
+  --code-cmd: oklch(0.85 0.14 155);
+  --code-flag: oklch(0.88 0.12 95);
+  --code-url: oklch(0.82 0.1 240);
+  --code-str: oklch(0.86 0.1 30);
+  --code-key: oklch(0.86 0.1 340);
+  --code-num: oklch(0.86 0.1 200);
   --code-punct: oklch(0.72 0.02 260);
-  --code-prompt: oklch(0.85 0.18 145);
-
+  --code-prompt: oklch(0.85 0.14 155);
 
   --background: var(--paper);
   --foreground: var(--ink);
-  --card: oklch(1 0 0);
+  --card: oklch(0.995 0.004 100);
   --card-foreground: var(--ink);
-  --popover: oklch(1 0 0);
+  --popover: oklch(0.995 0.004 100);
   --popover-foreground: var(--ink);
   --primary: var(--ink);
   --primary-foreground: var(--paper);
@@ -227,9 +229,9 @@
   --muted-foreground: var(--ink-soft);
   --destructive: var(--doodle-coral);
   --destructive-foreground: var(--ink);
-  --border: var(--ink);
-  --input: var(--ink);
-  --ring: var(--doodle-blue);
+  --border: oklch(0.22 0.02 260 / 0.55);
+  --input: oklch(0.22 0.02 260 / 0.45);
+  --ring: oklch(0.72 0.08 160);
 }
 
 @layer base {
@@ -237,7 +239,11 @@
     font-family: var(--font-sans);
     background-color: var(--paper);
     color: var(--ink);
-    background-image: none;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-attachment: fixed;
   }
 
   section[id] {
@@ -249,11 +255,10 @@
   h3 {
     font-family: var(--font-display);
     font-weight: 400;
-    letter-spacing: 0.01em;
+    letter-spacing: -0.02em;
   }
 }
 
-/* faint paper grain over the whole page */
 @utility grain {
   position: relative;
   &::after {
@@ -261,30 +266,70 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.3;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E");
+    opacity: 0.18;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E");
   }
 }
 
-/* chunky marker-outlined card */
+/* soft scrapbook panel — thin line + diffuse depth, not neo-brutal */
 @utility ink-box {
-  border: 3px solid var(--ink);
-  border-radius: 18px 12px 20px 14px / 14px 20px 12px 18px;
+  border: 1.5px solid var(--ink);
+  border-radius: 1.15rem;
   background-color: var(--card);
-  box-shadow: 5px 6px 0 0 var(--ink);
+  box-shadow: var(--soft-shadow);
 }
 
 @utility ink-box-flat {
-  border: 3px solid var(--ink);
-  border-radius: 16px 12px 18px 14px / 14px 18px 12px 16px;
+  border: 1.5px solid var(--ink);
+  border-radius: 1rem;
   background-color: var(--card);
 }
 
 @utility sticky-note {
   background-color: var(--tape);
-  border: 3px solid var(--ink);
-  border-radius: 8px 16px 10px 14px / 14px 10px 16px 8px;
-  box-shadow: 5px 6px 0 0 var(--ink);
+  border: 1px solid oklch(0.22 0.02 260 / 0.18);
+  border-radius: 0.35rem 0.85rem 0.45rem 0.7rem;
+  box-shadow: 0 8px 20px oklch(0.35 0.02 260 / 0.1);
+}
+
+@utility scrap-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 0.55rem;
+  background-color: var(--doodle-mint);
+  padding: 0.7rem 1.15rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink);
+  box-shadow: 0 6px 16px oklch(0.35 0.02 260 / 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  &:hover {
+    transform: translateY(-2px) rotate(-0.4deg);
+    box-shadow: 0 10px 22px oklch(0.35 0.02 260 / 0.12);
+  }
+}
+
+@utility scrap-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 0.55rem;
+  background-color: var(--card);
+  padding: 0.7rem 1.15rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink);
+  box-shadow: 0 4px 12px oklch(0.35 0.02 260 / 0.06);
+  transition: transform 0.2s ease;
+  &:hover {
+    transform: translateY(-2px) rotate(0.4deg);
+  }
 }
 
 @utility hand {
@@ -292,39 +337,55 @@
   line-height: 1.15;
 }
 
-/* hand-splattered paint blob pasted behind the text (drawn splat, not a rounded box) */
+/* soft highlighter — no ink outline */
 @utility marker {
   position: relative;
-  display: inline-block;
-  padding: 0.02em 0.42em 0.06em;
-  margin-inline: 0.4em;
+  display: inline;
+  padding: 0 0.18em;
   isolation: isolate;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
   &::before {
     content: "";
     position: absolute;
-    inset: -0.16em -0.34em -0.18em;
+    inset: 0.12em -0.12em 0.02em;
     z-index: -1;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 130' preserveAspectRatio='none'%3E%3Cg fill='%23f4cd4f' stroke='%23202128' stroke-width='7' stroke-linejoin='round'%3E%3Cpath d='M20,72 C6,58 15,38 35,32 C47,19 70,13 92,20 C111,7 146,5 168,16 C197,3 236,7 252,24 C283,21 307,38 302,61 C315,77 299,97 276,101 C258,117 220,125 190,116 C162,127 118,127 92,114 C66,121 34,111 26,96 C10,92 13,80 20,72 Z'/%3E%3Cellipse cx='307' cy='16' rx='9' ry='11'/%3E%3Cellipse cx='13' cy='105' rx='7' ry='9'/%3E%3C/g%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100% 100%;
+    background: var(--marker-mint);
+    border-radius: 0.25em 0.55em 0.3em 0.5em / 0.55em 0.3em 0.55em 0.35em;
+    transform: rotate(-0.8deg);
   }
 }
 
 @utility marker-pink {
   &::before {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 130' preserveAspectRatio='none'%3E%3Cg fill='%23f27ba6' stroke='%23202128' stroke-width='7' stroke-linejoin='round'%3E%3Cpath d='M20,72 C6,58 15,38 35,32 C47,19 70,13 92,20 C111,7 146,5 168,16 C197,3 236,7 252,24 C283,21 307,38 302,61 C315,77 299,97 276,101 C258,117 220,125 190,116 C162,127 118,127 92,114 C66,121 34,111 26,96 C10,92 13,80 20,72 Z'/%3E%3Cellipse cx='307' cy='16' rx='9' ry='11'/%3E%3Cellipse cx='13' cy='105' rx='7' ry='9'/%3E%3C/g%3E%3C/svg%3E");
+    background: var(--marker-pink);
+    transform: rotate(0.9deg);
   }
 }
 
+@utility marker-yellow {
+  &::before {
+    background: var(--marker-yellow);
+    transform: rotate(-1.1deg);
+  }
+}
 
-/* chunky doodle code window */
 @utility code-card {
-  border: 3px solid var(--ink);
-  border-radius: 16px 12px 18px 14px / 14px 18px 12px 16px;
+  border: 1.5px solid var(--ink);
+  border-radius: 0.9rem;
   overflow: hidden;
   background-color: var(--code-bg);
-  box-shadow: 5px 6px 0 0 var(--ink);
+  box-shadow: var(--soft-shadow);
+}
+
+@utility washi {
+  position: absolute;
+  height: 1.35rem;
+  width: 4.5rem;
+  background: color-mix(in oklab, var(--doodle-mint) 80%, white);
+  opacity: 0.85;
+  box-shadow: 0 1px 2px oklch(0.3 0.02 260 / 0.12);
+  mix-blend-mode: multiply;
 }
 
 
@@ -383,6 +444,17 @@
   }
   50% {
     transform: translateX(5px);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
