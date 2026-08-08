@@ -1,10 +1,9 @@
-import demoBefore from "@/assets/demo-before.webp";
-import demoAfter from "@/assets/demo-after.webp";
 import flowArt from "@/assets/flow-doodle.webp";
 import problemArt from "@/assets/problem-doodle.webp";
 import { Reveal } from "@/components/site/reveal";
 import { PaintDrip } from "@/components/site/paint";
 import { BrandIcon } from "@/components/site/brand-icons";
+import { DemoCompare } from "@/components/site/demo-compare";
 
 export function Problem() {
   const notes = [
@@ -140,80 +139,21 @@ export function DemoStory() {
         <Reveal>
           <p className="hand text-3xl text-ink">a real run</p>
           <h2 className="mt-2 max-w-2xl font-display text-4xl leading-tight sm:text-5xl">
-            from empty placeholder boxes to actual product shots.
+            svg placeholders in → generated pngs out.
           </h2>
           <p className="mt-4 max-w-2xl leading-relaxed font-semibold text-ink/80">
-            this ceramics landing page was built by an agent in one sitting. it shipped with a dashed
-            grey box in every product card, because the agent had no way to make an image. with
-            image-gen registered, the same agent generated each product shot through the ChatGPT
-            session, dropped the PNGs into <span className="font-mono text-sm">public/</span>, and
-            swapped the placeholders out itself. same page, same conversation, no context switch, no
-            API key.
+            terra ceramics was vibe-coded in one sitting. without image-gen, every product card is
+            just a dashed SVG. register the MCP, call{" "}
+            <span className="font-mono text-sm">generate_image</span>, and the same agent drops
+            real product shots into <span className="font-mono text-sm">public/</span> and wires
+            them in. drag the slider — or flip before / after — to see the mechanism.
           </p>
         </Reveal>
-        <div className="mt-12 grid gap-8 sm:grid-cols-2">
-          <Reveal from="left" delay={60}>
-            <Panel
-              label="before"
-              tone="bg-doodle-coral"
-              caption="every product card is an empty grey placeholder box"
-            >
-              <img
-                src={demoBefore}
-                alt="Ecommerce landing page with empty dashed grey placeholder boxes instead of product photos"
-                width={1200}
-                height={960}
-                loading="lazy"
-                decoding="async"
-                className="w-full border-[3px] border-ink"
-              />
-            </Panel>
-          </Reveal>
-          <Reveal from="right" delay={180}>
-            <Panel
-              label="after"
-              tone="bg-doodle-mint"
-              caption="real generated product shots, referenced from public/"
-            >
-              <img
-                src={demoAfter}
-                alt="The same ecommerce landing page with real generated ceramics product photos in every card"
-                width={1152}
-                height={928}
-                loading="lazy"
-                decoding="async"
-                className="w-full border-[3px] border-ink"
-              />
-            </Panel>
-          </Reveal>
-        </div>
+        <Reveal delay={80}>
+          <DemoCompare />
+        </Reveal>
       </div>
     </section>
-  );
-}
-
-function Panel({
-  label,
-  caption,
-  tone,
-  children,
-}: {
-  label: string;
-  caption: string;
-  tone: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <figure className="ink-box relative p-5">
-      <span
-        className={`hand absolute -top-5 left-5 rotate-[-3deg] border-[3px] border-ink px-3 text-2xl shadow-[3px_4px_0_0_var(--ink)] ${tone}`}
-        style={{ borderRadius: "10px 5px 12px 7px" }}
-      >
-        {label}
-      </span>
-      <div className="mt-3">{children}</div>
-      <figcaption className="mt-4 text-sm font-semibold text-ink/70">{caption}</figcaption>
-    </figure>
   );
 }
 
