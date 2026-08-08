@@ -1,6 +1,6 @@
 import flowArt from "@/assets/flow-doodle.webp";
 import problemArt from "@/assets/problem-doodle.webp";
-import stickerRobot from "@/assets/sticker-robot-brush.png";
+import stickerRobot from "@/assets/sticker-robot-brush.webp";
 import { Reveal } from "@/components/site/reveal";
 import { PaintDrip } from "@/components/site/paint";
 import { BrandIcon } from "@/components/site/brand-icons";

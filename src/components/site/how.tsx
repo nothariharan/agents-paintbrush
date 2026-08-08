@@ -5,11 +5,11 @@ import { useGSAP } from "@gsap/react";
 import { Reveal } from "@/components/site/reveal";
 import { PaintDrip } from "@/components/site/paint";
 
-import screen1 from "@/assets/how-ui-1-register.png";
-import screen2 from "@/assets/how-ui-2-ask.png";
-import screen3 from "@/assets/how-ui-3-browser.png";
-import screen4 from "@/assets/how-ui-4-paint.png";
-import screen5 from "@/assets/how-ui-5-ship.png";
+import screen1 from "@/assets/how-ui-1-register.webp";
+import screen2 from "@/assets/how-ui-2-ask.webp";
+import screen3 from "@/assets/how-ui-3-browser.webp";
+import screen4 from "@/assets/how-ui-4-paint.webp";
+import screen5 from "@/assets/how-ui-5-ship.webp";
 
 gsap.registerPlugin(useGSAP);
 
@@ -116,19 +116,26 @@ function ScreenFrame({ active }: { active: number }) {
             backgroundSize: "22px 22px",
           }}
         >
-          {STEPS.map((s, i) => (
-            <img
-              key={s.title}
-              src={s.art}
-              alt={s.alt}
-              width={1280}
-              height={960}
-              className={`absolute inset-0 h-full w-full object-contain p-2 transition-all duration-500 ease-out motion-reduce:transition-none sm:p-3 ${
-                i === active ? "opacity-100 scale-100" : "opacity-0 scale-[0.97]"
-              }`}
-              aria-hidden={i !== active}
-            />
-          ))}
+          {STEPS.map((s, i) => {
+            // only decode nearby slides so the how section stays light
+            if (Math.abs(i - active) > 1) return null;
+            return (
+              <img
+                key={s.title}
+                src={s.art}
+                alt={s.alt}
+                width={1280}
+                height={960}
+                loading={i === 0 ? "eager" : "lazy"}
+                decoding="async"
+                fetchPriority={i === active ? "high" : "low"}
+                className={`absolute inset-0 h-full w-full object-contain p-2 transition-all duration-500 ease-out motion-reduce:transition-none sm:p-3 ${
+                  i === active ? "opacity-100 scale-100" : "opacity-0 scale-[0.97]"
+                }`}
+                aria-hidden={i !== active}
+              />
+            );
+          })}
         </div>
       </div>
       <p className="hand mt-3 text-center text-xl text-ink/50">

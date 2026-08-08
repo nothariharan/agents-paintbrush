@@ -2,8 +2,8 @@ import { useState } from "react";
 import { GithubMark } from "@/components/site/hero";
 import { Reveal } from "@/components/site/reveal";
 import { PaintDrip } from "@/components/site/paint";
-import logoDaisy from "@/assets/logo-daisy.png";
-import stickerSmiley from "@/assets/sticker-smiley.png";
+import logoDaisy from "@/assets/logo-daisy.webp";
+import stickerSmiley from "@/assets/sticker-smiley.webp";
 
 const GITHUB = "https://github.com/nothariharan/image-gen";
 

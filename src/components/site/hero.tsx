@@ -2,12 +2,12 @@ import { useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
-import logoDaisy from "@/assets/logo-daisy.png";
-import stickerRobot from "@/assets/sticker-robot-brush.png";
-import stickerSmiley from "@/assets/sticker-smiley.png";
-import propBrush from "@/assets/prop-paintbrush.png";
-import stepPaint from "@/assets/how-step-4-paint.png";
-import stepShip from "@/assets/how-step-5-ship.png";
+import logoDaisy from "@/assets/logo-daisy.webp";
+import stickerRobot from "@/assets/sticker-robot-brush.webp";
+import stickerSmiley from "@/assets/sticker-smiley.webp";
+import propBrush from "@/assets/prop-paintbrush.webp";
+import stepPaint from "@/assets/how-step-4-paint.webp";
+import stepShip from "@/assets/how-step-5-ship.webp";
 
 gsap.registerPlugin(useGSAP);
 
