@@ -72,30 +72,50 @@ function ScreenFrame({ active }: { active: number }) {
     () => {
       gsap.fromTo(
         frameRef.current,
-        { y: 8 },
-        { y: -6, duration: 3.6, yoyo: true, repeat: -1, ease: "sine.inOut" },
+        { y: 6, rotate: -0.4 },
+        { y: -6, rotate: 0.5, duration: 3.6, yoyo: true, repeat: -1, ease: "sine.inOut" },
       );
     },
     { scope: frameRef },
   );
 
+  const labels = [
+    "mcp settings",
+    "agent chat",
+    "edge · chatgpt",
+    "image result",
+    "png in repo",
+  ] as const;
+
   return (
     <div ref={frameRef} className="w-full max-w-xl will-change-transform">
-      {/* laptop chrome */}
-      <div className="overflow-hidden rounded-[1.15rem] border border-ink/20 bg-[#1c1f26] p-2 shadow-[0_22px_48px_oklch(0.3_0.02_260/0.18)] sm:p-2.5">
-        <div className="mb-2 flex items-center gap-1.5 px-1">
-          <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-          <span className="ml-2 font-mono text-[10px] text-white/45">
-            {active === 0 && "Cursor · MCP Servers"}
-            {active === 1 && "Cursor · Agent chat"}
-            {active === 2 && "Edge · chatgpt.com"}
-            {active === 3 && "ChatGPT · Image"}
-            {active === 4 && "IDE · public/"}
+      {/* scrapbook paper stage — matches site doodle language */}
+      <div className="relative rounded-[1.35rem] border border-ink/20 bg-[#f7f4ec] p-3 shadow-[0_18px_42px_oklch(0.35_0.02_260/0.12)] sm:p-3.5">
+        <span
+          className="pointer-events-none absolute left-6 top-2 h-3 w-16 -rotate-6 rounded-sm bg-[oklch(0.86_0.08_160/0.65)]"
+          aria-hidden
+        />
+        <span
+          className="pointer-events-none absolute right-10 top-3 h-3 w-12 rotate-3 rounded-sm bg-[oklch(0.88_0.08_350/0.55)]"
+          aria-hidden
+        />
+        <div className="mb-2.5 flex items-center gap-2 px-1 pt-1">
+          <span className="h-2.5 w-2.5 rounded-full border border-ink/40 bg-[#f27b7b]" />
+          <span className="h-2.5 w-2.5 rounded-full border border-ink/40 bg-[#f4cd4f]" />
+          <span className="h-2.5 w-2.5 rounded-full border border-ink/40 bg-[#7dce9a]" />
+          <span className="ml-1 font-mono text-[10px] tracking-wide text-ink/50">
+            {labels[active]}
           </span>
         </div>
-        <div className="relative overflow-hidden rounded-[0.75rem] bg-white" style={{ aspectRatio: "4 / 3" }}>
+        <div
+          className="relative overflow-hidden rounded-[0.95rem] border border-ink/15 bg-paper"
+          style={{
+            aspectRatio: "4 / 3",
+            backgroundImage:
+              "linear-gradient(oklch(0.88 0.03 145 / 0.28) 1px, transparent 1px), linear-gradient(90deg, oklch(0.88 0.03 145 / 0.28) 1px, transparent 1px)",
+            backgroundSize: "22px 22px",
+          }}
+        >
           {STEPS.map((s, i) => (
             <img
               key={s.title}
@@ -103,17 +123,16 @@ function ScreenFrame({ active }: { active: number }) {
               alt={s.alt}
               width={1280}
               height={960}
-              className={`absolute inset-0 h-full w-full object-cover object-top transition-all duration-500 ease-out motion-reduce:transition-none ${
-                i === active ? "opacity-100 scale-100" : "opacity-0 scale-[0.98]"
+              className={`absolute inset-0 h-full w-full object-contain p-2 transition-all duration-500 ease-out motion-reduce:transition-none sm:p-3 ${
+                i === active ? "opacity-100 scale-100" : "opacity-0 scale-[0.97]"
               }`}
               aria-hidden={i !== active}
             />
           ))}
         </div>
       </div>
-      <div className="mx-auto h-2.5 w-[104%] rounded-b-xl border border-ink/25 bg-[#2a2e36]" />
-      <p className="hand mt-3 text-center text-lg text-ink/45">
-        {active + 1} / {STEPS.length} · real flow
+      <p className="hand mt-3 text-center text-xl text-ink/50">
+        {active + 1} of {STEPS.length}
       </p>
     </div>
   );
@@ -192,10 +211,10 @@ export function HowItWorks() {
           <Reveal>
             <p className="hand text-3xl text-ink/80">how it works</p>
             <h2 className="mt-2 max-w-2xl font-display text-4xl leading-[1.1] tracking-tight sm:text-5xl">
-              the real screens, <span className="marker">end to end</span>.
+              the flow, <span className="marker">screen by screen</span>.
             </h2>
             <p className="mt-4 max-w-xl font-mono text-sm leading-relaxed text-ink/75">
-              from MCP settings to a PNG in your repo — what it looks like when an agent can paint.
+              doodle-styled UI of the real path — MCP in, ChatGPT paints, PNG lands in your repo.
             </p>
           </Reveal>
         </div>
