@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import installArt from "@/assets/install-doodle.webp";
 import { Reveal } from "@/components/site/reveal";
-import { PaintDrip } from "@/components/site/paint";
+import { PaintDrip, SECTION } from "@/components/site/paint";
 import { CodeCard, JsonBlock, ShellLine } from "@/components/site/code";
 
 const steps = [
@@ -46,7 +46,7 @@ export function Install() {
   return (
     <>
       <PaintDrip from="paper" to="yellow" />
-      <section id="install" className="bg-doodle-yellow/80">
+      <section id="install" style={{ backgroundColor: SECTION.yellow }}>
         <div className="mx-auto max-w-6xl px-5 py-16 md:py-24">
           <Reveal>
             <p className="hand text-3xl text-ink/80">install</p>
@@ -144,7 +144,7 @@ const faqTones = [
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="bg-paper/50">
+    <section id="faq" style={{ backgroundColor: SECTION.paper }}>
       <div className="mx-auto max-w-3xl px-5 py-16 md:py-24">
         <Reveal>
           <p className="hand text-3xl text-ink/80">questions</p>

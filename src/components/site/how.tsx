@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 import { Reveal } from "@/components/site/reveal";
-import { PaintDrip } from "@/components/site/paint";
+import { PaintDrip, SECTION } from "@/components/site/paint";
 
 import screen1 from "@/assets/how-ui-1-register.webp";
 import screen2 from "@/assets/how-ui-2-ask.webp";
@@ -212,8 +212,8 @@ export function HowItWorks() {
 
   return (
     <>
-      <PaintDrip from="paper" to="blue" />
-      <section id="how" className="bg-[#e7f0ef]">
+      <PaintDrip from="paper" to="how" />
+      <section id="how" style={{ backgroundColor: SECTION.how }}>
         <div className="mx-auto max-w-6xl px-5 pt-14 md:pt-16 md:pb-0">
           <Reveal>
             <p className="hand text-3xl text-ink/80">how it works</p>
@@ -268,7 +268,7 @@ export function HowItWorks() {
           </div>
         </div>
       </section>
-      <PaintDrip from="blue" to="paper" />
+      <PaintDrip from="how" to="paper" />
     </>
   );
 }

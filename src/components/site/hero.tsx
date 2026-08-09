@@ -8,6 +8,7 @@ import stickerSmiley from "@/assets/sticker-smiley.webp";
 import propBrush from "@/assets/prop-paintbrush.webp";
 import stepPaint from "@/assets/how-step-4-paint.webp";
 import stepShip from "@/assets/how-step-5-ship.webp";
+import { SECTION } from "@/components/site/paint";
 
 gsap.registerPlugin(useGSAP);
 
@@ -130,7 +131,12 @@ export function Hero() {
   );
 
   return (
-    <section id="top" ref={rootRef} className="relative overflow-hidden pb-8 md:pb-14">
+    <section
+      id="top"
+      ref={rootRef}
+      className="relative overflow-hidden pb-8 md:pb-14"
+      style={{ backgroundColor: SECTION.paper }}
+    >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_18%_12%,oklch(0.93_0.05_160/0.45),transparent_42%),radial-gradient(ellipse_at_88%_18%,oklch(0.93_0.05_350/0.38),transparent_40%)]" />
 
       <div className="relative mx-auto min-h-[88vh] max-w-6xl px-4 pt-10 sm:px-6 md:pt-14">

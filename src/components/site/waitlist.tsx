@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { GithubMark } from "@/components/site/hero";
 import { Reveal } from "@/components/site/reveal";
-import { PaintDrip } from "@/components/site/paint";
+import { PaintDrip, SECTION } from "@/components/site/paint";
 import logoDaisy from "@/assets/logo-daisy.webp";
 import stickerSmiley from "@/assets/sticker-smiley.webp";
 
@@ -38,7 +38,7 @@ export function FinalCta() {
   return (
     <>
       <PaintDrip from="paper" to="mint" />
-      <section id="waitlist" className="relative bg-doodle-mint/75">
+      <section id="waitlist" className="relative" style={{ backgroundColor: SECTION.mint }}>
         <img
           src={stickerSmiley}
           alt=""
@@ -129,13 +129,14 @@ export function FinalCta() {
           </Reveal>
         </div>
       </section>
+      <PaintDrip from="mint" to="paper-deep" />
     </>
   );
 }
 
 export function Footer() {
   return (
-    <footer className="border-t border-ink/10 bg-paper-deep/80">
+    <footer style={{ backgroundColor: SECTION["paper-deep"] }}>
       <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-10 font-mono text-xs text-ink/70 sm:flex-row sm:items-end sm:text-sm">
         <div>
           <p className="flex items-center gap-2 font-display text-2xl text-ink lowercase">
