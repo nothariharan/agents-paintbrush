@@ -323,28 +323,30 @@ function FixStar({ className }: { className?: string }) {
 function FixPath() {
   return (
     <svg
-      viewBox="0 0 1000 160"
+      viewBox="0 0 1000 320"
       preserveAspectRatio="none"
-      className="pointer-events-none absolute inset-x-0 top-[42%] hidden h-28 w-full md:block"
+      className="pointer-events-none absolute inset-x-0 top-8 hidden h-[22rem] w-full md:block"
       aria-hidden
     >
+      {/* stepped connector: card1 → card2 → card3 */}
       <path
-        d="M20 90 C120 40, 220 140, 340 80 S520 20, 660 95 S820 150, 960 70"
+        d="M160 70 C280 70, 320 130, 500 145 S700 175, 840 230"
         fill="none"
         stroke="oklch(0.82 0.09 300)"
-        strokeWidth="22"
+        strokeWidth="20"
         strokeLinecap="round"
       />
       <path
-        d="M20 90 C120 40, 220 140, 340 80 S520 20, 660 95 S820 150, 960 70"
+        d="M160 70 C280 70, 320 130, 500 145 S700 175, 840 230"
         fill="none"
         stroke="var(--ink)"
         strokeWidth="3"
         strokeLinecap="round"
       />
-      <circle cx="20" cy="90" r="8" fill="var(--ink)" />
+      <circle cx="160" cy="70" r="7" fill="var(--ink)" />
+      <circle cx="500" cy="145" r="6" fill="var(--ink)" />
       <path
-        d="M940 52 l28 20 -34 6"
+        d="M820 210 l28 22 -36 4"
         fill="none"
         stroke="var(--ink)"
         strokeWidth="3.5"
@@ -385,22 +387,27 @@ export function Solution() {
           </div>
         </Reveal>
 
-        <div className="relative mt-14 md:mt-20">
+        <div className="relative mt-14 md:mt-16 md:pb-16">
           <FixPath />
 
-          <div className="relative z-10 grid gap-10 md:grid-cols-3 md:gap-6">
+          <div className="relative z-10 grid gap-12 md:grid-cols-3 md:items-start md:gap-7">
             {FIX_STEPS.map((step, i) => (
               <Reveal key={step.n} delay={i * 110} from="scale">
-                <div className="relative pt-10">
+                <div
+                  className={`relative pt-12 ${
+                    i === 1 ? "md:mt-14" : i === 2 ? "md:mt-28" : "md:mt-0"
+                  }`}
+                >
+                  {/* Native 3:2 stickers — never stretch taller than wide */}
                   <img
                     src={step.sticker}
                     alt={step.stickerAlt}
                     width={120}
-                    height={120}
+                    height={80}
                     loading="lazy"
                     decoding="async"
-                    className={`pointer-events-none absolute -top-1 z-20 h-16 w-16 drop-shadow-md sm:h-20 sm:w-20 ${
-                      step.stickerSide === "left" ? "left-4" : "right-4"
+                    className={`pointer-events-none absolute -top-1 z-20 h-auto w-[4.5rem] object-contain drop-shadow-md sm:w-[5.25rem] ${
+                      step.stickerSide === "left" ? "left-3" : "right-3"
                     }`}
                   />
                   <FixStar
@@ -410,7 +417,7 @@ export function Solution() {
                   />
 
                   <article
-                    className={`relative flex h-full flex-col rounded-[1.35rem] border-[2.5px] border-ink/80 p-5 shadow-[0_10px_28px_oklch(0.35_0.02_260/0.08)] ${step.bg}`}
+                    className={`relative flex flex-col rounded-[1.35rem] border-[2.5px] border-ink/80 p-5 shadow-[0_10px_28px_oklch(0.35_0.02_260/0.08)] ${step.bg}`}
                     style={{ transform: `rotate(${step.rotate})` }}
                   >
                     <span className="grid h-9 w-9 place-items-center rounded-full bg-ink font-mono text-xs font-medium text-paper">
@@ -477,15 +484,14 @@ export function DemoStory() {
         <Reveal>
           <p className="hand text-3xl text-ink/80">a real run</p>
           <h2 className="mt-2 max-w-2xl font-display text-4xl leading-[1.1] tracking-tight sm:text-5xl">
-            svg placeholders in → <em className="not-italic text-[oklch(0.68_0.14_350)]">generated pngs</em> out.
+            svg diagrams in → <em className="not-italic text-[oklch(0.68_0.14_350)]">awwwards finish</em> out.
           </h2>
           <p className="mt-4 max-w-2xl font-mono text-sm leading-relaxed text-ink/75">
-            terra ceramics was vibe-coded in one sitting. without image-gen, every product card is
-            just a dashed SVG. register the MCP, call{" "}
-            <span className="rounded bg-doodle-mint/60 px-1.5 py-0.5 text-xs">generate_image</span>,
-            and the same agent drops real product shots into{" "}
-            <span className="rounded bg-doodle-yellow/70 px-1.5 py-0.5 text-xs">public/</span> and
-            wires them in. drag the slider — or flip before / after — to see the mechanism.
+            same Terra Ceramics site, two states. before: full layout with dashed SVG placeholders —
+            no photography. after: the agent calls{" "}
+            <span className="rounded bg-doodle-mint/60 px-1.5 py-0.5 text-xs">generate_image</span>{" "}
+            and paints an Awwwards-level storefront. drag the slider — or flip before / after — to
+            see the jump.
           </p>
         </Reveal>
         <Reveal delay={80}>

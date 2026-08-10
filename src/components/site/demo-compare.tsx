@@ -3,115 +3,39 @@ import { useEffect, useRef, useState } from "react";
 import demoBefore from "@/assets/demo-before.webp";
 import demoAfter from "@/assets/demo-after.webp";
 
-const PRODUCTS = [
-  { name: "Speckled Mug", price: "$36", file: "public/speckled-mug.png" },
-  { name: "Shallow Bowl", price: "$48", file: "public/shallow-bowl.png" },
-  { name: "Dinner Plate", price: "$42", file: "public/dinner-plate.png" },
-  { name: "Bud Vase", price: "$28", file: "public/bud-vase.png" },
-] as const;
+const DEMO_W = 1280;
+const DEMO_H = 900;
 
 type Mode = "before" | "after" | "compare";
 
-function PlaceholderSvg() {
-  return (
-    <svg viewBox="0 0 120 90" className="h-full w-full" aria-hidden="true">
-      <rect
-        x="4"
-        y="4"
-        width="112"
-        height="82"
-        fill="#e8e8e8"
-        stroke="#b0b0b0"
-        strokeWidth="2"
-        strokeDasharray="5 4"
-        rx="2"
-      />
-      <path
-        d="M38 58 L52 42 L64 52 L78 34 L96 58 Z"
-        fill="none"
-        stroke="#9a9a9a"
-        strokeWidth="2.5"
-        strokeLinejoin="round"
-      />
-      <circle cx="46" cy="30" r="5" fill="none" stroke="#9a9a9a" strokeWidth="2.5" />
-      <text
-        x="60"
-        y="74"
-        textAnchor="middle"
-        fill="#8a8a8a"
-        fontSize="8"
-        fontFamily="ui-monospace, monospace"
-      >
-        svg placeholder
-      </text>
-    </svg>
-  );
-}
-
-function BeforeGrid() {
-  return (
-    <div className="rounded-xl border border-ink/25 bg-[#f7f6f3] p-3 shadow-[0_12px_28px_oklch(0.35_0.02_260/0.08)] sm:p-4">
-      <div className="mb-3 flex items-end justify-between gap-2">
-        <div>
-          <p className="font-mono text-[10px] tracking-[0.18em] text-ink/50 uppercase">
-            Terra Ceramics
-          </p>
-          <p className="font-display text-xl leading-none text-ink sm:text-2xl">New Arrivals</p>
-        </div>
-        <span className="hand rounded-md border border-ink/20 bg-doodle-coral px-2 py-0.5 text-lg leading-none shadow-sm">
-          no image-gen
-        </span>
-      </div>
-      <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
-        {PRODUCTS.map((p) => (
-          <div
-            key={p.name}
-            className="flex overflow-hidden rounded-lg border border-ink/15 bg-white"
-          >
-            <div className="aspect-[4/3] w-[46%] shrink-0 bg-[#f0f0f0]">
-              <PlaceholderSvg />
-            </div>
-            <div className="flex flex-1 flex-col justify-center gap-0.5 px-3 py-2">
-              <p className="text-[11px] font-bold tracking-tight text-ink sm:text-xs">{p.name}</p>
-              <p className="text-[10px] font-semibold text-ink/45">Stoneware</p>
-              <p className="text-[11px] font-extrabold text-ink sm:text-xs">{p.price}</p>
-              <p className="mt-1 font-mono text-[9px] text-ink/40">&lt;svg /&gt;</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function AfterPage() {
+function SiteShot({
+  src,
+  alt,
+  badge,
+  badgeClass,
+}: {
+  src: string;
+  alt: string;
+  badge: string;
+  badgeClass: string;
+}) {
   return (
     <div className="overflow-hidden rounded-xl border border-ink/25 bg-paper shadow-[0_14px_32px_oklch(0.35_0.02_260/0.1)]">
-      <div className="flex items-center justify-between border-b border-ink/15 bg-doodle-mint px-3 py-2">
-        <span className="hand rounded-md border border-ink/15 bg-paper px-2 py-0.5 text-lg leading-none shadow-sm">
-          image-gen on
+      <div className="flex items-center justify-between border-b border-ink/15 bg-paper-deep px-3 py-2">
+        <span className={`hand rounded-md border border-ink/15 px-2 py-0.5 text-lg leading-none shadow-sm ${badgeClass}`}>
+          {badge}
         </span>
-        <span className="font-mono text-[10px] text-ink/70">public/*.png</span>
+        <span className="font-mono text-[10px] text-ink/60">terra-ceramics · same page</span>
       </div>
       <img
-        src={demoAfter}
-        alt="After: Terra Ceramics product cards filled with generated photos"
-        width={1152}
-        height={928}
+        src={src}
+        alt={alt}
+        width={DEMO_W}
+        height={DEMO_H}
         className="block w-full"
         loading="lazy"
         decoding="async"
       />
-      <div className="grid grid-cols-2 gap-2 border-t border-ink/10 bg-paper-deep p-3 sm:grid-cols-4">
-        {PRODUCTS.map((p) => (
-          <p
-            key={p.file}
-            className="truncate rounded-md border border-ink/15 bg-paper px-2 py-1 font-mono text-[9px] text-ink/70"
-          >
-            {p.file}
-          </p>
-        ))}
-      </div>
     </div>
   );
 }
@@ -157,18 +81,18 @@ function CompareSlider() {
     >
       <img
         src={demoAfter}
-        alt="After: product cards filled with generated ceramics photos"
-        width={1152}
-        height={928}
+        alt="After: Awwwards-level Terra Ceramics site with professional product photography"
+        width={DEMO_W}
+        height={DEMO_H}
         draggable={false}
         className="block w-full"
       />
       <div className="absolute inset-0 overflow-hidden" style={{ width: `${pct}%` }}>
         <img
           src={demoBefore}
-          alt="Before: product cards with empty SVG placeholders"
-          width={1200}
-          height={960}
+          alt="Before: same Terra Ceramics site with SVG diagram placeholders only"
+          width={DEMO_W}
+          height={DEMO_H}
           draggable={false}
           className="absolute inset-y-0 left-0 h-full max-w-none"
           style={{ width: frameW ? `${frameW}px` : "100%" }}
@@ -202,7 +126,7 @@ function CompareSlider() {
         before · svgs
       </span>
       <span className="hand absolute top-3 right-3 z-20 rounded-md border border-ink/15 bg-doodle-mint px-2 py-0.5 text-xl leading-none shadow-sm">
-        after · pngs
+        after · awwwards
       </span>
     </div>
   );
@@ -218,7 +142,7 @@ export function DemoCompare() {
           [
             ["before", "before · svg only"],
             ["compare", "drag to compare"],
-            ["after", "after · generated"],
+            ["after", "after · awwwards"],
           ] as const
         ).map(([id, label]) => (
           <button
@@ -239,13 +163,19 @@ export function DemoCompare() {
 
       {mode === "before" && (
         <div className="grid items-start gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <BeforeGrid />
+          <SiteShot
+            src={demoBefore}
+            alt="Before: Terra Ceramics full site with SVG placeholders instead of photos"
+            badge="no image-gen"
+            badgeClass="bg-doodle-coral"
+          />
           <div className="space-y-4">
             <div className="ink-box bg-doodle-coral p-5">
               <p className="hand text-3xl leading-none">no paintbrush yet</p>
               <p className="mt-3 text-sm leading-relaxed font-semibold text-ink/80">
-                the agent shipped a complete ceramics storefront, but every product slot is a dashed
-                SVG placeholder. it can write the page — it just can&apos;t draw.
+                same Terra Ceramics storefront — nav, hero, New Arrivals, feature bar — but every
+                image slot is a dashed SVG diagram. the agent can ship the page; it just can&apos;t
+                draw.
               </p>
             </div>
             <MechanismCard mode="before" />
@@ -255,14 +185,19 @@ export function DemoCompare() {
 
       {mode === "after" && (
         <div className="grid items-start gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <AfterPage />
+          <SiteShot
+            src={demoAfter}
+            alt="After: Awwwards-level Terra Ceramics site with professional photography"
+            badge="image-gen on"
+            badgeClass="bg-doodle-mint"
+          />
           <div className="space-y-4">
             <div className="ink-box bg-doodle-mint p-5">
               <p className="hand text-3xl leading-none">agent painted it</p>
               <p className="mt-3 text-sm leading-relaxed font-semibold text-ink/80">
-                same page, same conversation. <span className="font-mono text-xs">generate_image</span>{" "}
-                ran four times, dropped PNGs into <span className="font-mono text-xs">public/</span>,
-                and the agent swapped the SVGs for real product shots.
+                same content, Awwwards-tier finish.{" "}
+                <span className="font-mono text-xs">generate_image</span> filled the hero and
+                product slots with real photography — soft light, editorial stills, boutique polish.
               </p>
             </div>
             <MechanismCard mode="after" />
@@ -275,7 +210,7 @@ export function DemoCompare() {
           <MechanismStep
             n="1"
             title="before"
-            body="product cards ship with dashed SVG placeholders. no photos, no API, nothing to paint with."
+            body="full site ships with SVG diagrams in every image slot. layout is done — photos aren't."
             color="bg-doodle-coral"
           />
           <MechanismStep
@@ -287,7 +222,7 @@ export function DemoCompare() {
           <MechanismStep
             n="3"
             title="after"
-            body="PNGs land in public/. the same agent wires the paths into the cards. page done."
+            body="same page, Awwwards-level photography wired in. drag the slider to see the jump."
             color="bg-doodle-mint"
           />
         </div>
@@ -334,16 +269,16 @@ function MechanismCard({ mode }: { mode: "before" | "after" }) {
         {"\n"}
         <span className="text-code-key">{"  prompt"}</span>
         <span className="text-code-punct">: </span>
-        <span className="text-code-str">"speckled stoneware mug"</span>
+        <span className="text-code-str">"awwwards ceramics hero"</span>
         <span className="text-code-punct">,</span>
         {"\n"}
         <span className="text-code-key">{"  path"}</span>
         <span className="text-code-punct">: </span>
-        <span className="text-code-url">"public/speckled-mug.png"</span>
+        <span className="text-code-url">"public/hero.png"</span>
         {"\n"}
         <span className="text-code-punct">{"})"}</span>
         {"\n"}
-        <span className="text-code-plain">{"// → PNG on disk, card updated"}</span>
+        <span className="text-code-plain">{"// → PNG on disk, page leveled up"}</span>
       </pre>
     </div>
   );

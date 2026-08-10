@@ -55,3 +55,8 @@ See `DEPLOY_ZEROPS.md` for env vars and endpoints.
 - Node.js HTTP API (`api/server.mjs`)
 - PostgreSQL via `pg`
 - Zerops for build, deploy, networking, SSL
+
+## AI Usage
+
+Lovable made initial design ( completely revamped from it tbh u cant even see trace of me using it now coz i didnt like lovable's design )  , later cursor helped me further refine the design , mcp was designed by scratch by me and then refined using cursor still refining the website more but yeah mcp end to end fully works , i first designed a rough wireframe like i usually do on figma then proceeded to design in and replicate it on dev platform using cursor
+

@@ -30,6 +30,8 @@ export const SECTION: Record<string, string> = {
   /** soft how-it-works stage (matches cream→mint reference) */
   how: "#dceaf4",
   workspace: "#f3efe6",
+  /** dark hero canvas */
+  void: "#0b0b0c",
 };
 
 export function PaintDrip({

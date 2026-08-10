@@ -19,7 +19,16 @@ zcli push --setup web
 zcli push --setup api
 ```
 
-`zerops.yml` wires `DATABASE_URL` from `${db_connectionString}`.
+`zerops.yml` wires `DATABASE_URL` from the `db` service for both `web` and `api`.
+
+### Local waitlist
+
+Postgres lives on Zerops (not public from your laptop). For local `npm run dev`, set
+`VITE_PUBLIC_API_BASE` in `.env` to the public `api` subdomain so the form posts to
+Zerops Postgres via CORS. Copy from `.env.example`.
+
+To hit Postgres from local server routes instead, run `zcli vpn up -P <project-id>` and
+set `DATABASE_URL` to the project connection string.
 
 ## Endpoints
 

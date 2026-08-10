@@ -125,6 +125,22 @@ const server = http.createServer(async (req, res) => {
       return send(res, 200, result.rows[0]);
     }
 
+    if (
+      req.method === "GET" &&
+      (path === "/admin/waitlist" || path === "/api/public/admin/waitlist" || path === "/api/public/admin-waitlist")
+    ) {
+      const adminKey = process.env.ADMIN_SECRET || "zerops-waitlist-secret";
+      const key = url.searchParams.get("key") || req.headers["x-admin-key"];
+      if (key !== adminKey) {
+        return send(res, 401, { ok: false, error: "unauthorized" });
+      }
+      await readySchema();
+      const result = await pool.query(
+        `SELECT id, email, note, created_at FROM waitlist_signups ORDER BY created_at DESC`
+      );
+      return send(res, 200, { ok: true, count: result.rows.length, signups: result.rows });
+    }
+
     if (req.method === "POST" && (path === "/click" || path === "/api/public/click")) {
       await readySchema();
       await pool.query(`

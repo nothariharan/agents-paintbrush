@@ -2,6 +2,7 @@ import { useState } from "react";
 import { GithubMark } from "@/components/site/hero";
 import { Reveal } from "@/components/site/reveal";
 import { PaintDrip, SECTION } from "@/components/site/paint";
+import { publicApiUrl } from "@/lib/public-api";
 import logoDaisy from "@/assets/logo-daisy.webp";
 import stickerSmiley from "@/assets/sticker-smiley.webp";
 
@@ -17,7 +18,7 @@ export function FinalCta() {
     e.preventDefault();
     setState("sending");
     try {
-      const res = await fetch("/api/public/waitlist", {
+      const res = await fetch(publicApiUrl("/api/public/waitlist"), {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ email: email.trim(), note: note.trim() || null }),
@@ -67,7 +68,9 @@ export function FinalCta() {
               href={GITHUB}
               target="_blank"
               rel="noreferrer"
-              onClick={() => void fetch("/api/public/click", { method: "POST" }).catch(() => {})}
+              onClick={() =>
+                void fetch(publicApiUrl("/api/public/click"), { method: "POST" }).catch(() => {})
+              }
               className="scrap-btn mt-7"
             >
               <GithubMark /> github.com/nothariharan/image-gen
